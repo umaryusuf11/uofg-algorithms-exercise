@@ -22,6 +22,7 @@ public class FileParser {
         for (int i = 0; i < array.length; i++) {
             array[i] = al.get(i);
         }
+        scanner.close();
         return array;
     }
 
