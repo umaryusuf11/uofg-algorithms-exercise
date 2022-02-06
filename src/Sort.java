@@ -35,9 +35,25 @@ public class Sort {
         }
         return arr;
     }
-
     public static int[] quickSort(int[] arr) {
         return quickSort(arr, 0, arr.length-1);
+    }
+
+    public static int[] quickSortWithInsertionSort(int[] arr, int low, int high, int k){
+        if (low < high) {
+            int pi = partition(arr, low, high);
+
+            if (pi - low + 1 < k) {
+                arr = insertionSort(arr, low, pi);
+            } else {
+                arr = quickSortWithInsertionSort(arr, low, pi - 1, k);
+            }
+            arr = quickSortWithInsertionSort(arr, pi + 1, high, k);
+        }
+        return arr;
+    }
+    public static int[] quickSortWithInsertionSort(int[] arr, int k){
+        return quickSortWithInsertionSort(arr, 0, arr.length-1, k);
     }
 
     /* Insertion sort algorithm */
@@ -49,7 +65,6 @@ public class Sort {
         }
         return arr;
     }
-
     public static int[] insertionSort(int arr[]){
         return insertionSort(arr, 0, arr.length);
     }
