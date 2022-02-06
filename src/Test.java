@@ -6,7 +6,7 @@ public class Test {
         System.out.println("Before sorting: ");
         System.out.println(Arrays.toString(arr));
 
-        int[] a = Sort.quickSort(arr);
+        int[] a = Sort.insertionSort(arr);
         System.out.println("After sorting: ");
         System.out.println(Arrays.toString(a));
     }
