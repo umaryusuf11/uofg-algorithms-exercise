@@ -14,7 +14,6 @@ public class FileParser {
             String line = scanner.nextLine();
             // add line to array
             al.add(Integer.parseInt(line));
-            System.out.println(line);
         }
 
         // convert arraylist to array
