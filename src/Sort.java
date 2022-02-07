@@ -20,16 +20,32 @@ public class Sort {
         return i+1;
     }
 
-    public static int[] quickSort(int[] arr, int left, int right) {
+    /* A variant of the partition function that uses the  median-of-three partitioning scheme */
+    public static int partitionMedianOfThree(int[] arr, int left, int right) {
+        int mid = (left + right) / 2;
+        if (arr[left] > arr[right]) {
+           swap(arr, left, right);
+        }
+        if (arr[left] > arr[mid]) {
+            swap(arr, mid, left);
+        }
+        if (arr[mid] > arr[right]) {
+            swap(arr, left, mid);
+        }
+        swap(arr, mid, right);
+
+        return partition(arr, left, right);
+    }
+
+    public static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int pivot = partition(arr, left, right);
             quickSort(arr, left, pivot-1);
             quickSort(arr, pivot+1, right);
         }
-        return arr;
     }
-    public static int[] quickSort(int[] arr) {
-        return quickSort(arr, 0, arr.length-1);
+    public static void quickSort(int[] arr) {
+        quickSort(arr, 0, arr.length-1);
     }
 
     public static void quickSortHybrid(int[] arr, int cutoff) {
@@ -48,17 +64,29 @@ public class Sort {
         }
     }
 
+    /* A variant of QUICKSORT using the median-of-three partitioning scheme. */
+    public static void quickSortMedianOfThree(int[] arr, int low, int high) {
+        if (low < high) {
+            int pi = partitionMedianOfThree(arr, low, high);
+
+            quickSortMedianOfThree(arr, low, pi - 1);
+            quickSortMedianOfThree(arr, pi + 1, high);
+        }
+    }
+    public static void quickSortMedianOfThree(int[] arr) {
+        quickSortMedianOfThree(arr, 0, arr.length - 1);
+    }
+
 
     /* Insertion sort algorithm */
-    public static int[] insertionSort(int arr[], int p, int r){
+    public static void insertionSort(int[] arr, int p, int r){
         for (int i = p + 1; i < r; i++){
             for (int j = i; j > p && arr[j] < arr[j-1]; j--){
                 swap(arr, j, j-1);
             }
         }
-        return arr;
     }
-    public static int[] insertionSort(int arr[]){
-        return insertionSort(arr, 0, arr.length);
+    public static void insertionSort(int[] arr){
+        insertionSort(arr, 0, arr.length);
     }
 }

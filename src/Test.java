@@ -53,6 +53,17 @@ public class Test {
         System.out.println("-------------------------------------------------------------------");
         System.out.println("");
 
+        System.out.println("QuickSort Median of Three Partitioning: ");
+        int[] d3 = dataset.clone(); // cloning so that we don't change the original dataset
+        startTime = System.nanoTime();
+        Sort.quickSortMedianOfThree(d3);
+        endTime = System.nanoTime();
+        passed = TestSortingAlgorithms.isSorted(d3);
+        System.out.println("Passed: " + passed);
+        System.out.println("Time taken: " + (endTime - startTime) / 1000000 + " ms");
+        System.out.println("");
+        System.out.println("-------------------------------------------------------------------");
+        System.out.println("");
 
     }
 
