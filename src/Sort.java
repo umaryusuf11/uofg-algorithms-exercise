@@ -1,37 +1,30 @@
 public class Sort {
 
-
-    /* Swaps array element positions */
-    public static int[] swap(int[] arr, int i, int j) {
+    static void swap(int[] arr, int i, int j) {
         int temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
-        return arr;
     }
 
-    /* Partition function for quicksort algorithm */
-    public static int partition(int[] arr, int low, int high) {
-        int x = arr[high];
-        int i = low - 1;
+    static int partition(int[] arr, int left, int right) {
+        int pivot = arr[right];
+        int i = left - 1;
+        for (int j = left; j <= right - 1; j++) {
 
-        for (int j = low; j <= high - 1; j++) {
-            if (arr[j] <= x) {
+            if (arr[j] <= pivot) {
                 i++;
-                arr = swap(arr, i, j);
+                swap(arr, i, j);
             }
         }
-        arr = swap(arr, i + 1, high);
-
+        swap(arr, i+1, right);
         return i+1;
     }
 
-    /* Quicksort Algorithm  */
-    public static int[] quickSort(int[] arr, int low, int high) {
-        if (low < high) {
-            int pi = partition(arr, low, high);
-
-            arr = quickSort(arr, low, pi - 1);
-            arr = quickSort(arr, pi + 1, high);
+    public static int[] quickSort(int[] arr, int left, int right) {
+        if (left < right) {
+            int pivot = partition(arr, left, right);
+            quickSort(arr, left, pivot-1);
+            quickSort(arr, pivot+1, right);
         }
         return arr;
     }
@@ -39,22 +32,22 @@ public class Sort {
         return quickSort(arr, 0, arr.length-1);
     }
 
-    public static int[] quickSortWithInsertionSort(int[] arr, int low, int high, int k){
-        if (low < high) {
-            int pi = partition(arr, low, high);
-
-            if (pi - low + 1 < k) {
-                arr = insertionSort(arr, low, pi);
-            } else {
-                arr = quickSortWithInsertionSort(arr, low, pi - 1, k);
+    public static void quickSortHybrid(int[] arr, int cutoff) {
+        quickSortWCutoff(arr, 0, arr.length - 1, cutoff);
+        insertionSort(arr);
+    }
+    static void quickSortWCutoff(int[] arr, int left, int right, int cutoff) {
+        if (left < right) {
+            if (right - left + 1 < cutoff) {
+                return;
             }
-            arr = quickSortWithInsertionSort(arr, pi + 1, high, k);
+
+            int pivot = partition(arr, left, right);
+            quickSortWCutoff(arr, left, pivot-1, cutoff);
+            quickSortWCutoff(arr, pivot+1, right, cutoff);
         }
-        return arr;
     }
-    public static int[] quickSortWithInsertionSort(int[] arr, int k){
-        return quickSortWithInsertionSort(arr, 0, arr.length-1, k);
-    }
+
 
     /* Insertion sort algorithm */
     public static int[] insertionSort(int arr[], int p, int r){
