@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class FileParser {
 
     /* Read a file with integers seperated by newlines and return them as an ArrayList<Integer> */
-    public int[] parseFile(String filePath) throws FileNotFoundException {
+    public static int[] parseFile(String filePath) throws FileNotFoundException {
         // using ArrayList to fix size constraints
         ArrayList<Integer> al = new ArrayList<Integer>();
         Scanner scanner = new Scanner(new File(filePath));
